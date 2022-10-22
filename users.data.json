@@ -1,11 +1,7 @@
 [
   {
     "_id": "63526166a9b8b455047caf39",
-    "gender": "female",
-    "name": "Crawford Camacho",
-    "contact": "+1 (962) 557-3346",
-    "address": "790 Thomas Street, Joppa, Nevada, 8391",
-    "photoUrl": "http://placehold.it/32x32",
+    "name": "Ali Ibne Masud",
     "index": 0
   },
   {
@@ -37,11 +33,6 @@
   },
   {
     "_id": "63526166c3158b0879af774c",
-    "gender": "male",
-    "name": "Bridget Greer",
-    "contact": "+1 (824) 488-3020",
-    "address": "720 Losee Terrace, Loretto, Idaho, 1377",
-    "photoUrl": "http://placehold.it/32x32",
     "index": 4
   },
   {

@@ -5,7 +5,13 @@ const usersData = require('../../users.data.json');
 
 
 router.get("/all", (req, res) => {
-    res.send(usersData)
+    const limit = req.query.limit;
+    if (limit) {
+        const result = usersData.slice(0, limit)
+        res.send(result)
+    } else {
+        res.send(usersData)
+    }
 })
 
 // get random user
@@ -22,16 +28,18 @@ router.get("/:id", (req, res) => {
     res.send(find)
 })
 
+// Saving data
+
 router.post("/save", (req, res) => {
     const newUser = req.body;
-    newUser.index = usersData.length;    
-    fs.readFile("users.data.json" , "utf-8", (err, data) => {
+    newUser.index = usersData.length;
+    fs.readFile("users.data.json", "utf-8", (err, data) => {
         if (err) {
             console.log(err)
         } else {
             const users = JSON.parse(data);
             users.push(newUser);
-            fs.writeFile( "users.data.json" , JSON.stringify(users, null, 2), (err) => {
+            fs.writeFile("users.data.json", JSON.stringify(users, null, 2), (err) => {
                 console.log(err)
             })
         }
@@ -39,23 +47,34 @@ router.post("/save", (req, res) => {
     res.send("Data Saved!");
 })
 
-router.patch ('/update/:id', (req, res)=> {
-    const {id} = req.params;
-    const {name, gender, contact, address, photoUrl} = req.body;
+// Updating data but a error is deleting all data
 
-    console.log(id)
+router.patch('/update/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, gender, contact, address, photoUrl } = req.body;
+    fs.readFile("users.data.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log(err)
+            res.send("internal error 1st")
+        }
+        else {
+            const users = JSON.parse(data);            
+            const updateData = users.find(user => user._id == id);
+            if (updateData) {
+                    updateData.name = name;                
+                    updateData.gender = gender;               
+                    updateData.contact = contact;               
+                    updateData.address = address = address;                
+                    updateData.photoUrl = photoUrl;
+                }
 
-    const updateData = usersData.find(user => user._id == id);
-
-    JSON.parse(updateData)
-
-    updateData.name = name;
-    updateData.gender = gender;
-    updateData.contact = contact;
-    updateData.address = address;
-    updateData.photoUrl = photoUrl;
-
-    res.send("Data updated!")  
+            fs.writeFile("users.data.json", JSON.stringify(users, null, 2), (err) => {
+                console.log(err)
+                res.send("Data Updated!")
+            })
+        }
+    })
 })
+
 
 module.exports = router;
