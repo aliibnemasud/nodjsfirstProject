@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const usersData = require("../../utils/data/users.data.json");
-const usersData2 = require("../../data.json");
 const fs = require('fs');
+const usersData = require('../../users.data.json');
+
 
 router.get("/all", (req, res) => {
     res.send(usersData)
@@ -24,41 +24,38 @@ router.get("/:id", (req, res) => {
 
 router.post("/save", (req, res) => {
     const newUser = req.body;
-    const insertUser = usersData.push(newUser);
-    res.send(insertUser);
-})
-
-
-router.post("/post", (req, res) => {
-    const newUser = JSON.stringify(req.body);
-    fs.writeFile('data.json', newUser, (err) => {
-        console.log("Error to save data", err)
-    })
-    res.send("Data Saved");
-})
-
-
-router.post("/postt", (req, res) => {
-    const newUser = req.body;
-    console.log(newUser)
-
-    fs.readFile('data.json', "utf-8", (err, data) => {
+    newUser.index = usersData.length;    
+    fs.readFile("users.data.json" , "utf-8", (err, data) => {
         if (err) {
             console.log(err)
         } else {
             const users = JSON.parse(data);
             users.push(newUser);
-            fs.writeFile("data.json", JSON.stringify(users, null, 2), (err) => {
+            fs.writeFile( "users.data.json" , JSON.stringify(users, null, 2), (err) => {
                 console.log(err)
             })
         }
     })
-
-    res.send(usersData2);
+    res.send("Data Saved!");
 })
 
+router.patch ('/update/:id', (req, res)=> {
+    const {id} = req.params;
+    const {name, gender, contact, address, photoUrl} = req.body;
 
+    console.log(id)
 
+    const updateData = usersData.find(user => user._id == id);
 
+    JSON.parse(updateData)
+
+    updateData.name = name;
+    updateData.gender = gender;
+    updateData.contact = contact;
+    updateData.address = address;
+    updateData.photoUrl = photoUrl;
+
+    res.send("Data updated!")  
+})
 
 module.exports = router;
