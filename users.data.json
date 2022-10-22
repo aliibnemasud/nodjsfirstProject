@@ -32,10 +32,6 @@
     "index": 3
   },
   {
-    "_id": "63526166c3158b0879af774c",
-    "index": 4
-  },
-  {
     "_id": "635261664c90907010ea18a7",
     "gender": "female",
     "name": "Frye Goodman",
@@ -97,15 +93,6 @@
     "address": "258 Sutton Street, Allentown, Michigan, 8483",
     "photoUrl": "http://placehold.it/32x32",
     "index": 11
-  },
-  {
-    "_id": "63526166e9e1d2fac6f4df04",
-    "gender": "male",
-    "name": "Angela Spears",
-    "contact": "+1 (930) 559-2536",
-    "address": "795 Coleman Street, Makena, Indiana, 200",
-    "photoUrl": "http://placehold.it/32x32",
-    "index": 12
   },
   {
     "_id": "63526166f660b4036a1e5400",

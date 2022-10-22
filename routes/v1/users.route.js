@@ -77,4 +77,24 @@ router.patch('/update/:id', (req, res) => {
 })
 
 
+// Delete Operation Successfully
+
+
+router.delete("/:id", (req, res) => {
+    const id = req.params.id;  
+    fs.readFile("users.data.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            let users = JSON.parse(data);
+            users = users.filter(user =>  user._id !== id);            
+            fs.writeFile("users.data.json", JSON.stringify(users, null, 2), (err) => {
+                //console.log(err);                
+            });
+        }
+    })
+    res.send("Data Deleted!");
+})
+
+
 module.exports = router;
