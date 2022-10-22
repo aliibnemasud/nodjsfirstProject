@@ -8,16 +8,16 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use("/api/v1/user", users);
+app.use("/user", users);
 
 // api for all routes
 
-app.all("*", (req, res)=> {
-  res.send("No Route found!");
-})
-
 app.get('/', (req, res) => {
   res.send('Server is running....')
+})
+
+app.all("*", (req, res)=> {
+  res.send("No Routes found!");
 })
 
 app.listen(port, () => {
